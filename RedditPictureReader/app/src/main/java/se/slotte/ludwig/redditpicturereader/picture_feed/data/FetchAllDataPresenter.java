@@ -23,7 +23,7 @@ public class FetchAllDataPresenter {
         void onComplete(List<Children> success);
     }
 
-    public void fetchCategories(@Nullable final FetchDataCallback callback) {
+    public void fetchPhotos(@Nullable final FetchDataCallback callback) {
         service = ServiceFactory.createRetrofitService(ServiceFactory.BASE_URL).create(FetchAllDataService.class);
 
         service.getPicturesFromApi()

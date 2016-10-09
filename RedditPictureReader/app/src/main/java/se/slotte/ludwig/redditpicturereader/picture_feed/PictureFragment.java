@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,6 +28,8 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
     MyPictureRecyclerViewAdapter myPictureRecyclerViewAdapter;
     @BindView(R.id.list)
     RecyclerView recyclerView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private Parcelable savedRecyclerLayoutState;
 
@@ -51,13 +54,28 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
         Log.d(TAG, "onCreateView: ");
         if(savedInstanceState == null) {
             Log.d(TAG, "onCreateView: saved == Null");
-            FetchAllDataPresenter fetchAllDataPresenter = new FetchAllDataPresenter();
-            fetchAllDataPresenter.fetchCategories(this);
+            fetchPhotos();
         } else {
             Log.d(TAG, "onCreateView: saved != null");
             restoreLayoutManagerPosition();
         }
+        swipeRefreshListener();
         return view;
+    }
+
+    private void fetchPhotos() {
+        FetchAllDataPresenter fetchAllDataPresenter = new FetchAllDataPresenter();
+        fetchAllDataPresenter.fetchPhotos(this);
+    }
+
+    private void swipeRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                fetchPhotos();
+            }
+        });
     }
 
 
@@ -77,6 +95,7 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
         myPictureRecyclerViewAdapter.setItems(success);
         recyclerView.setAdapter(myPictureRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 

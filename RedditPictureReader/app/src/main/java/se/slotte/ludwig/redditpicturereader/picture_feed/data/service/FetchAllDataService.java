@@ -6,7 +6,6 @@ import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Pics;
 
 public interface FetchAllDataService {
 
-    @GET("/r/pics.json?limit=40")
+    @GET("/r/pics.json")
     Observable<Pics> getPicturesFromApi();
-
 }
