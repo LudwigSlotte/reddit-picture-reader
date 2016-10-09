@@ -68,5 +68,8 @@ dependencies {
     compile 'frankiesardo:icepick:3.2.0'
     provided 'frankiesardo:icepick-processor:3.2.0'
 
+    //Favourite-button LikeButton
+    compile 'com.github.jd-alexander:LikeButton:0.2.0'
+
     testCompile 'junit:junit:4.12'
 }
