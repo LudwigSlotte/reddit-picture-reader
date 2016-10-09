@@ -11,6 +11,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +22,7 @@
         <activity
             android:name=".favourite_pictures.FavouritePicturesActivity"
             android:label="@string/title_activity_favourite_pictures"
+
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
