@@ -2,10 +2,11 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="380dp"
-    android:layout_margin="8dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <RelativeLayout
+        android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,20 +24,37 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/thumbnail"
             android:maxLines="3"
+            android:text="id"
             android:padding="8dp"
             android:textColor="#222"
             android:textStyle="bold"
             android:textSize="22dp" />
 
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_person_black_24dp"
+            android:layout_below="@id/id"
+            android:layout_alignStart="@id/id"
+            android:paddingBottom="8dp"
+            android:id="@+id/user_icon"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignLeft="@id/id" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/id"
             android:maxLines="3"
-            android:padding="8dp"
+            android:layout_toRightOf="@id/user_icon"
+            android:text="content"
+            android:paddingBottom="8dp"
             android:id="@+id/content"
             android:textColor="#666"
             android:textSize="14dp" />
+
+
+
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

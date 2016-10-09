@@ -2,6 +2,8 @@ package se.slotte.ludwig.redditpicturereader.picture_feed;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,23 +19,16 @@ import butterknife.ButterKnife;
 import se.slotte.ludwig.redditpicturereader.R;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.FetchAllDataPresenter;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Children;
-import se.slotte.ludwig.redditpicturereader.picture_feed.dummy.DummyContent.DummyItem;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
 public class PictureFragment extends Fragment implements FetchAllDataPresenter.FetchDataCallback {
     public static final String TAG = PictureFragment.class.getName();
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private static final String BUNDLE_RECYCLER_LAYOUT = "bundle_reycler_layout";
     MyPictureRecyclerViewAdapter myPictureRecyclerViewAdapter;
     @BindView(R.id.list)
     RecyclerView recyclerView;
 
-    private OnListFragmentInteractionListener mListener;
+    private Parcelable savedRecyclerLayoutState;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,12 +48,15 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_picture_list, container, false);
         ButterKnife.bind(this, view);
-        // Set the adapter
-        myPictureRecyclerViewAdapter = new MyPictureRecyclerViewAdapter();
-        recyclerView.setAdapter(myPictureRecyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        FetchAllDataPresenter fetchAllDataPresenter = new FetchAllDataPresenter();
-        fetchAllDataPresenter.fetchCategories(this);
+        Log.d(TAG, "onCreateView: ");
+        if(savedInstanceState == null) {
+            Log.d(TAG, "onCreateView: saved == Null");
+            FetchAllDataPresenter fetchAllDataPresenter = new FetchAllDataPresenter();
+            fetchAllDataPresenter.fetchCategories(this);
+        } else {
+            Log.d(TAG, "onCreateView: saved != null");
+            restoreLayoutManagerPosition();
+        }
         return view;
     }
 
@@ -71,27 +69,43 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
     public void onComplete(List<Children> success) {
-        Log.d(TAG, "onComplete in PictureFragment: ");
+        myPictureRecyclerViewAdapter = new MyPictureRecyclerViewAdapter();
         myPictureRecyclerViewAdapter.setItems(success);
+        recyclerView.setAdapter(myPictureRecyclerViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * This is a method for Fragment.
+     * You can do the same in onCreate or onRestoreInstanceState
      */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if(savedInstanceState != null){
+            savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+            recyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, recyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    private void restoreLayoutManagerPosition() {
+        if (savedRecyclerLayoutState != null) {
+            recyclerView.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
+    }
+
+
+
 }

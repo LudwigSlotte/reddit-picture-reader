@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,12 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
         mValues = new ArrayList<>();
     }
 
-    public void setItems(List<Children> list){
+    public void setItems(List<Children> list) {
         Log.d(TAG, "setItems: " + list.size());
         mValues = list;
         notifyDataSetChanged();
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: ");
@@ -51,7 +53,14 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(data.getTitle());
         holder.mContentView.setText(data.getAuthor());
-        Glide.with(context).load(data.getThumbnail()).into(holder.thumbnail);
+        if (data.getUrl().isEmpty() || data.getThumbnail().equals(context.getString(R.string.reddit_self_tag))) {
+            holder.thumbnail.setVisibility(View.GONE);
+        }
+        Glide.with(context)
+                .load(data.getUrl())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.ic_error_no_image_24dp)
+                .into(holder.thumbnail);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
