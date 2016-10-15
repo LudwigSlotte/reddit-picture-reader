@@ -2,10 +2,10 @@ package se.slotte.ludwig.redditpicturereader.picture_feed.data.model;
 
 import java.util.List;
 
-public class Data {
+public class Data  {
 
-    String modhash;
-    List<Children> children;
+    private String modhash;
+    private List<Children> children;
 
     public List<Children> getChildren() {
         return children;

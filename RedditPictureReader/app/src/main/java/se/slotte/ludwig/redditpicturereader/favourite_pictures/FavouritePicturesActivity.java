@@ -11,6 +11,8 @@ import se.slotte.ludwig.redditpicturereader.R;
 
 public class FavouritePicturesActivity extends AppCompatActivity {
 
+    private static final String TAG = FavouritePicturesActivity.class.getName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,5 +28,8 @@ public class FavouritePicturesActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+//        Realm realm = Realm.getDefaultInstance();
+//        List<RealmDataInChildren> list=  RealmController.getInstance().getDataInChildrens();
+//        Log.d(TAG, "onCreate: " + list.get(0));
     }
 }

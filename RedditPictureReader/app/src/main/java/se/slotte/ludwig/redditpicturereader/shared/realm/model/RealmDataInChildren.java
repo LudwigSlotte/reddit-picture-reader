@@ -1,16 +1,20 @@
-package se.slotte.ludwig.redditpicturereader.picture_feed.data.model;
+package se.slotte.ludwig.redditpicturereader.shared.realm.model;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by ludwigslotte on 08/10/16.
+ * Created by ludwigslotte on 09/10/16.
  */
-public class DataInChildren {
 
+public class RealmDataInChildren extends RealmObject {
     private String author;
 
     private String title;
 
     private int num_comments;
-    private Preview preview;
+
+    @PrimaryKey
     private String id;
     private long created;
 

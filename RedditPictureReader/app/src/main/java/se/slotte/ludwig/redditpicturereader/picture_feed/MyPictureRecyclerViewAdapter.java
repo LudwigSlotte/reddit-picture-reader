@@ -11,15 +11,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.like.LikeButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import se.slotte.ludwig.redditpicturereader.R;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Children;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.DataInChildren;
+import se.slotte.ludwig.redditpicturereader.shared.realm.model.RealmDataInChildren;
 
 
 public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder> {
@@ -49,7 +52,7 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: ");
-        DataInChildren data = mValues.get(position).getData();
+        final DataInChildren data = mValues.get(position).getData();
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(data.getTitle());
         holder.mContentView.setText(data.getAuthor());
@@ -61,10 +64,15 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.ic_error_no_image_24dp)
                 .into(holder.thumbnail);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.starButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                RealmDataInChildren realmDataInChildren = new RealmDataInChildren();
+                realmDataInChildren.setId(data.getId());
+                realm.createObject(realmDataInChildren.getClass());
+                realm.commitTransaction();
             }
         });
     }
@@ -82,6 +90,8 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
         public Children mItem;
         @BindView(R.id.thumbnail)
         ImageView thumbnail;
+        @BindView(R.id.star_button)
+        LikeButton starButton;
 
         public ViewHolder(View view) {
             super(view);

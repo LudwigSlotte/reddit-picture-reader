@@ -26,9 +26,4 @@ public class Pics
         this.kind = kind;
     }
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [data = "+data+", kind = "+kind+"]";
-    }
 }
