@@ -75,4 +75,11 @@ public class DataInChildren {
         this.url = url;
     }
 
+    public Preview getPreview() {
+        return preview;
+    }
+
+    public void setPreview(Preview preview) {
+        this.preview = preview;
+    }
 }

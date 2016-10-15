@@ -56,25 +56,29 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(data.getTitle());
         holder.mContentView.setText(data.getAuthor());
-        if (data.getUrl().isEmpty() || data.getThumbnail().equals(context.getString(R.string.reddit_self_tag))) {
+        if (data.getThumbnail().equals(context.getString(R.string.reddit_self_tag))) {
             holder.thumbnail.setVisibility(View.GONE);
+            holder.starButton.setVisibility(View.GONE);
+        } else {
+            holder.thumbnail.setVisibility(View.VISIBLE);
+            holder.starButton.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(data.getPreview().getImages().get(0).getSource().getUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.ic_error_no_image_24dp)
+                    .into(holder.thumbnail);
+            holder.starButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Realm realm = Realm.getDefaultInstance();
+                    realm.beginTransaction();
+                    RealmDataInChildren realmDataInChildren = new RealmDataInChildren();
+                    realmDataInChildren.setId(data.getId());
+                    realm.createObject(realmDataInChildren.getClass());
+                    realm.commitTransaction();
+                }
+            });
         }
-        Glide.with(context)
-                .load(data.getUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .error(R.drawable.ic_error_no_image_24dp)
-                .into(holder.thumbnail);
-        holder.starButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Realm realm = Realm.getDefaultInstance();
-                realm.beginTransaction();
-                RealmDataInChildren realmDataInChildren = new RealmDataInChildren();
-                realmDataInChildren.setId(data.getId());
-                realm.createObject(realmDataInChildren.getClass());
-                realm.commitTransaction();
-            }
-        });
     }
 
     @Override
