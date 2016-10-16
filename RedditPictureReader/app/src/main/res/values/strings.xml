@@ -28,6 +28,7 @@
     <!--Others-->
     <string name="reddit_self_tag">self</string>
     <string name="mail_to_data">mailto: ludwig_slotte@hotmail.com</string>
+    <string name="snackbar_refresh_database">Refreshing database</string>
 
 
 </resources>

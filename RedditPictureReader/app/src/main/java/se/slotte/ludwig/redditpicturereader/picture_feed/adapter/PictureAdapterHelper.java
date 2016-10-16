@@ -32,7 +32,7 @@ class PictureAdapterHelper {
     }
 
     void showOrHideImageView() {
-        if (data.getThumbnail().equals(context.getString(R.string.reddit_self_tag))) {
+        if (data.getPreview() == null || data.getThumbnail().equals(context.getString(R.string.reddit_self_tag))) {
             showImageAndStarButton(holder, View.GONE);
         } else {
             initPictureWithLogic();

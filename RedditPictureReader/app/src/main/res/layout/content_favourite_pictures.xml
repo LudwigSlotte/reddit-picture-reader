@@ -17,6 +17,7 @@
             android:name="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layoutManager="LinearLayoutManager"
             tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
             tools:listitem="@layout/favourite_picture_item" />
