@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/error_text_size"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="@string/no_favourite_pictures"
+                android:text="@string/error_no_favourite_pictures"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/error_margin_top_first_item"  />

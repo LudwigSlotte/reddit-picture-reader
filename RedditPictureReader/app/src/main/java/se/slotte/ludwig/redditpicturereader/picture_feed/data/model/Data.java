@@ -2,7 +2,7 @@ package se.slotte.ludwig.redditpicturereader.picture_feed.data.model;
 
 import java.util.List;
 
-public class Data  {
+public class Data {
 
     private String modhash;
     private List<Children> children;
@@ -22,9 +22,6 @@ public class Data  {
     public void setModhash(String modhash) {
         this.modhash = modhash;
     }
-
-
-
 
 
 }

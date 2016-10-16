@@ -15,7 +15,7 @@ public class ServiceFactory {
     public static String BASE_URL = "https://www.reddit.com";
 
     //Add Interceptor to every response that we make to the server
-    public static OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
+    private static OkHttpClient defaultHttpClient = new OkHttpClient.Builder()
             .addInterceptor(
                     new Interceptor() {
                         @Override
@@ -29,12 +29,10 @@ public class ServiceFactory {
 
     public static Retrofit createRetrofitService(final String endPoint) {
 
-        final Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(endPoint).client(defaultHttpClient)
                 .build();
-
-        return retrofit;
     }
 }

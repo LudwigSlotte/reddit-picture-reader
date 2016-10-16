@@ -17,19 +17,20 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/ic_person_black_24dp" />
+        android:src="@drawable/ic_person_black_24dp"
+        android:contentDescription="@string/nav_header_content_description" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Logged-in User"
+        android:text="@string/nav_header_logged_in_user"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="user.email@hotmail.com" />
+        android:text="@string/nav_header_user_email" />
 
 </LinearLayout>

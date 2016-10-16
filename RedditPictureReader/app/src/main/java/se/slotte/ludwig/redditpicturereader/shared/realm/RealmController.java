@@ -53,8 +53,6 @@ public class RealmController {
     }
 
 
-
-
     //find all objects in the DataInChildren.class
     public RealmResults<RealmSavedFavouritePicture> getDataInChildrens() {
 
@@ -66,7 +64,6 @@ public class RealmController {
 
         return realm.where(RealmSavedFavouritePicture.class).equalTo("id", id).findFirst();
     }
-
 
 
     //query example

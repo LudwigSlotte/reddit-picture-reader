@@ -3,6 +3,7 @@ package se.slotte.ludwig.redditpicturereader;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -42,18 +43,18 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Log.d(TAG, "onCreate: MainActivity Created");
-            Fragment fragment = new PictureFragment();
-            fragment.setRetainInstance(true);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_main, fragment);
-            fragmentTransaction.commit();
+        Fragment fragment = new PictureFragment();
+        fragment.setRetainInstance(true);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.startActivity(myIntent);
         } else if (id == R.id.nav_send) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-            emailIntent.setData(Uri.parse("mailto: ludwig_slotte@hotmail.com"));
+            emailIntent.setData(Uri.parse(getString(R.string.mail_to_data)));
             startActivity(Intent.createChooser(emailIntent, getString(R.string.menu_send_feedback)));
 
         }

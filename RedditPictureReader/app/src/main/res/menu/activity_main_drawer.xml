@@ -5,7 +5,7 @@
         <item
             android:id="@+id/navigation_favourite_pictures"
             android:icon="@drawable/ic_star_border_black_24dp"
-            android:title="@string/nav_drawer_menu_favourites" />
+            android:title="@string/title_nav_drawer_menu_favourites" />
     </group>
 
     <item android:title="@string/menu_contact_support">

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/error_text_size"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/no_pictures_error"
+            android:text="@string/error_no_pictures"
             android:id="@+id/error_text"
             android:layout_alignParentTop="true"
             android:textColor="@color/error_gray"
@@ -46,7 +46,7 @@
             android:layout_below="@+id/error_image"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/error_button"
-            android:text="@string/button_fetch_photos_from_server"/>
+            android:text="@string/error_button_fetch_photos_from_server"/>
     </RelativeLayout>
 
     <se.slotte.ludwig.redditpicturereader.util.EmptyRecyclerView

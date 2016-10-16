@@ -20,10 +20,6 @@ import se.slotte.ludwig.redditpicturereader.picture_feed.data.service.ServiceFac
 
 public class FetchAllDataPresenter {
     private FetchAllDataService service;
-    public interface FetchDataCallback {
-        void onComplete(List<Children> success);
-        void onNetworkError();
-    }
 
     public void fetchPhotos(@Nullable final FetchDataCallback callback) {
         service = ServiceFactory.createRetrofitService(ServiceFactory.BASE_URL).create(FetchAllDataService.class);
@@ -53,6 +49,12 @@ public class FetchAllDataPresenter {
 
                     }
                 });
+    }
+
+    public interface FetchDataCallback {
+        void onComplete(List<Children> success);
+
+        void onNetworkError();
     }
 
 }
