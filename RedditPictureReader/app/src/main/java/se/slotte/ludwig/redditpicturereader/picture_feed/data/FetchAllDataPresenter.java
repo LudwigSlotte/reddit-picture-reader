@@ -1,7 +1,6 @@
 package se.slotte.ludwig.redditpicturereader.picture_feed.data;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,10 +18,9 @@ import se.slotte.ludwig.redditpicturereader.picture_feed.data.service.ServiceFac
  */
 
 public class FetchAllDataPresenter {
-    private FetchAllDataService service;
 
     public void fetchPhotos(@Nullable final FetchDataCallback callback) {
-        service = ServiceFactory.createRetrofitService(ServiceFactory.BASE_URL).create(FetchAllDataService.class);
+        FetchAllDataService service = ServiceFactory.createRetrofitService(ServiceFactory.BASE_URL).create(FetchAllDataService.class);
 
         service.getPicturesFromApi()
                 .subscribeOn(Schedulers.newThread())
@@ -35,9 +33,10 @@ public class FetchAllDataPresenter {
 
                     @Override
                     public final void onError(Throwable e) {
-                        Log.e("MServicesFragment", e.getMessage());
                         if (e instanceof IOException) {
-                            callback.onNetworkError();
+                            if (callback != null) {
+                                callback.onNetworkError();
+                            }
                         }
                     }
 

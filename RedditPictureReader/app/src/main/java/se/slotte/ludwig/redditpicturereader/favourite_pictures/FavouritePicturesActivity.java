@@ -2,6 +2,7 @@ package se.slotte.ludwig.redditpicturereader.favourite_pictures;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -34,10 +35,10 @@ public class FavouritePicturesActivity extends AppCompatActivity implements Favo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_pictures);
         ButterKnife.bind(this);
-        presenter = new FavouritePicturePresenter(this);
         setToolbarAndEnableBackButton();
         initFabAndOnClickLogic();
         initAdapterAndSetLayoutManager();
+        presenter = new FavouritePicturePresenter(this);
         presenter.loadFromRealmDatabase();
     }
 
@@ -54,6 +55,7 @@ public class FavouritePicturesActivity extends AppCompatActivity implements Favo
             @Override
             public void onClick(View view) {
                 presenter.loadFromRealmDatabase();
+                Snackbar.make(recyclerView, R.string.snackbar_refresh_database, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -64,6 +66,7 @@ public class FavouritePicturesActivity extends AppCompatActivity implements Favo
         recyclerView.setEmptyView(emptyViewForList);
         recyclerView.setAdapter(myFavouritePictureRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
     @Override
