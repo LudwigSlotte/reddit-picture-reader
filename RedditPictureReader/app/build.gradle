@@ -28,9 +28,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    //Android Support Libs
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
@@ -58,18 +57,15 @@ dependencies {
     //OKHttp
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
 
-    //Gson
-    compile 'com.google.code.gson:gson:2.7'
-
     //Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
-    //Icepick
-    compile 'frankiesardo:icepick:3.2.0'
-    provided 'frankiesardo:icepick-processor:3.2.0'
 
     //Favourite-button LikeButton
     compile 'com.github.jd-alexander:LikeButton:0.2.0'
 
+    //Test
     testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
