@@ -6,8 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/pictures_list_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:textAlignment="center">
 
-    <android.support.v7.widget.RecyclerView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/error_text_size"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/no_pictures_error"
+            android:id="@+id/error_text"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/error_gray"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/error_margin_top_first_item"/>
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/error_text"
+            android:id="@+id/error_image"
+            android:layout_marginTop="@dimen/error_margin_top"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_cloud_off_black_24dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/error_margin_top"
+            android:textColor="@color/error_gray"
+            android:layout_below="@+id/error_image"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/error_button"
+            android:text="@string/button_fetch_photos_from_server"/>
+    </RelativeLayout>
+
+    <se.slotte.ludwig.redditpicturereader.util.EmptyRecyclerView
         android:id="@+id/list"
         android:name="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
         android:layout_width="match_parent"
@@ -15,7 +57,6 @@
         app:layoutManager="LinearLayoutManager"
         tools:context="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
         tools:listitem="@layout/picture_item" />
-
-
+    </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

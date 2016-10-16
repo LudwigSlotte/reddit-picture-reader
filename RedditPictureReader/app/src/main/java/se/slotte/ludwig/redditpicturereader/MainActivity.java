@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.navigation_favourite_pictures) {
             Intent myIntent = new Intent(MainActivity.this, FavouritePicturesActivity.class);
             MainActivity.this.startActivity(myIntent);
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             emailIntent.setData(Uri.parse("mailto: ludwig_slotte@hotmail.com"));

@@ -136,8 +136,8 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
             super(view);
             ButterKnife.bind(this, view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIdView = (TextView) view.findViewById(R.id.title);
+            mContentView = (TextView) view.findViewById(R.id.user);
         }
 
         @Override

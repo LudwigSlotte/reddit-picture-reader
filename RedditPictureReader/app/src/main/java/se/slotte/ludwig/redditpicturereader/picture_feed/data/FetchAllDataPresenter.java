@@ -3,6 +3,7 @@ package se.slotte.ludwig.redditpicturereader.picture_feed.data;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.List;
 
 import rx.Subscriber;
@@ -21,6 +22,7 @@ public class FetchAllDataPresenter {
     private FetchAllDataService service;
     public interface FetchDataCallback {
         void onComplete(List<Children> success);
+        void onNetworkError();
     }
 
     public void fetchPhotos(@Nullable final FetchDataCallback callback) {
@@ -38,7 +40,8 @@ public class FetchAllDataPresenter {
                     @Override
                     public final void onError(Throwable e) {
                         Log.e("MServicesFragment", e.getMessage());
-                        if (callback != null) {
+                        if (e instanceof IOException) {
+                            callback.onNetworkError();
                         }
                     }
 

@@ -1,8 +1,6 @@
 package se.slotte.ludwig.redditpicturereader.picture_feed.data.service;
 
 
-import android.content.Context;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -27,11 +25,7 @@ public class ServiceFactory {
                             return chain.proceed(request);
                         }
                     }).build();
-    private Context context;
 
-    public ServiceFactory(Context context) {
-        this.context = context;
-    }
 
     public static Retrofit createRetrofitService(final String endPoint) {
 

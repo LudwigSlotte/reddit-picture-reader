@@ -8,13 +8,36 @@
     tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
     tools:showIn="@layout/activity_favourite_pictures">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/favourite_list"
-        android:name="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
-        tools:listitem="@layout/favourite_picture_item" />
+        android:layout_height="match_parent">
 
+        <se.slotte.ludwig.redditpicturereader.util.EmptyRecyclerView
+            android:id="@+id/favourite_list"
+            android:name="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
+            tools:listitem="@layout/favourite_picture_item" />
+
+        <RelativeLayout
+            android:id="@+id/favourite_pictures_list_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/error_text_size"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/no_favourite_pictures"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/error_margin_top_first_item"  />
+
+        </RelativeLayout>
+    </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

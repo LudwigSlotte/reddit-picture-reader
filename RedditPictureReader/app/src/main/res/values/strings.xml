@@ -10,4 +10,9 @@
 
     <string name="reddit_self_tag">self</string>
     <string name="menu_send_feedback">Send feedback</string>
+    <string name="no_favourite_pictures">You haven\'t favourited any pics yet.</string>
+    <string name="menu_contact_support">Contact Support</string>
+    <string name="menu_send_email">Send Email</string>
+    <string name="no_pictures_error">No pictures could be found.</string>
+    <string name="button_fetch_photos_from_server">Fetch photos from server</string>
 </resources>

@@ -95,8 +95,6 @@ public class MyFavouritePictureRecyclerViewAdapter extends RecyclerView.Adapter<
 
                     @Override
                     public void unLiked(LikeButton likeButton) {
-
-
                         final RealmResults<RealmSavedFavouritePicture> result =
                                 realm.where(RealmSavedFavouritePicture.class).equalTo("id", picture.getId()).findAll();
                         realm.executeTransaction(new Realm.Transaction() {
@@ -115,10 +113,6 @@ public class MyFavouritePictureRecyclerViewAdapter extends RecyclerView.Adapter<
 
     @Override
     public int getItemCount() {
-        //Need to call notifyDataSetChanged on the last item, otherwise bug will occur in notifyItemRemoved
-//        if(mValues.size() == 1){
-//            notifyDataSetChanged();
-//        }
         return mValues.size();
     }
 
