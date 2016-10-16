@@ -8,10 +8,13 @@
     tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
     tools:showIn="@layout/activity_favourite_pictures">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favourite_list"
+        android:name="se.slotte.ludwig.redditpicturereader.picture_feed.PictureFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="se.slotte.ludwig.redditpicturereader.favourite_pictures.FavouritePicturesActivity"
+        tools:listitem="@layout/favourite_picture_item" />
 
 </android.support.v4.widget.NestedScrollView>

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'realm-android'
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
@@ -70,9 +70,6 @@ dependencies {
 
     //Favourite-button LikeButton
     compile 'com.github.jd-alexander:LikeButton:0.2.0'
-
-    // Realm
-    compile 'io.realm:realm-android:0.82.1'
 
     testCompile 'junit:junit:4.12'
 }

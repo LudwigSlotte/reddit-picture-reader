@@ -26,10 +26,6 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public PictureFragment() {
     }
 
@@ -47,8 +43,10 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
         fetchPhotos();
         swipeRefreshListener();
         initAdapterAndSetLayoutManager();
+
         return view;
     }
+
 
     private void initAdapterAndSetLayoutManager() {
         myPictureRecyclerViewAdapter = new MyPictureRecyclerViewAdapter();
@@ -65,7 +63,6 @@ public class PictureFragment extends Fragment implements FetchAllDataPresenter.F
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
                 fetchPhotos();
             }
         });

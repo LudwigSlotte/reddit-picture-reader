@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import se.slotte.ludwig.redditpicturereader.R;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Children;
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.DataInChildren;
-import se.slotte.ludwig.redditpicturereader.shared.realm.model.RealmDataInChildren;
+import se.slotte.ludwig.redditpicturereader.shared.realm.model.RealmSavedFavouritePicture;
 
 
 public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPictureRecyclerViewAdapter.ViewHolder> {
@@ -44,7 +46,7 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: ");
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_picture_item, parent, false);
+                .inflate(R.layout.picture_item, parent, false);
         context = parent.getContext();
         return new ViewHolder(view);
     }
@@ -53,6 +55,7 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: ");
         final DataInChildren data = mValues.get(position).getData();
+        final Realm realm = Realm.getDefaultInstance();
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(data.getTitle());
         holder.mContentView.setText(data.getAuthor());
@@ -67,17 +70,49 @@ public class MyPictureRecyclerViewAdapter extends RecyclerView.Adapter<MyPicture
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.ic_error_no_image_24dp)
                     .into(holder.thumbnail);
-            holder.starButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Realm realm = Realm.getDefaultInstance();
-                    realm.beginTransaction();
-                    RealmDataInChildren realmDataInChildren = new RealmDataInChildren();
-                    realmDataInChildren.setId(data.getId());
-                    realm.createObject(realmDataInChildren.getClass());
-                    realm.commitTransaction();
-                }
-            });
+
+            final RealmResults<RealmSavedFavouritePicture> result =
+                    realm.where(RealmSavedFavouritePicture.class).equalTo("id", data.getId()).findAll();
+
+            if(result.size() > 0){
+                holder.starButton.setLiked(true);
+            } else {
+                holder.starButton.setLiked(false);
+            }
+
+
+            holder.starButton.
+                    setOnLikeListener(new OnLikeListener() {
+                        @Override
+                        public void liked(LikeButton likeButton) {
+
+
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    final RealmSavedFavouritePicture realmData = new RealmSavedFavouritePicture();
+                                    realmData.setId(data.getId());
+                                    realmData.setUrl(data.getPreview().getImages().get(0).getSource().getUrl());
+                                    realm.copyToRealm(realmData);
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void unLiked(LikeButton likeButton) {
+                            final RealmResults<RealmSavedFavouritePicture> result =
+                                    realm.where(RealmSavedFavouritePicture.class).equalTo("id", data.getId()).findAll();
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    result.deleteFromRealm(0);
+                                }
+                            });
+                        }
+                    });
+
         }
     }
 
