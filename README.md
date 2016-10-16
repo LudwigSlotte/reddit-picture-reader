@@ -32,3 +32,6 @@ A simple reader for showing the top pictures of Reddit.com/r/pics.
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
+## Try it
+
+* [Signed APK](https://github.com/LudwigSlotte/reddit-picture-reader/blob/master/app-release.apk) - Click 'download' to get it.
