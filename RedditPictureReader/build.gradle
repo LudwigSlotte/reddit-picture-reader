@@ -7,7 +7,7 @@ buildscript {
         maven {url "https://clojars.org/repo/"}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-rc2'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta4'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         //Realm
         classpath "io.realm:realm-gradle-plugin:2.0.2"
@@ -18,7 +18,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
+        google()
     }
 }
 
