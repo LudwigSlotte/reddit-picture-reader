@@ -8,10 +8,14 @@ import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Children;
  * Created by ludwigslotte on 16/10/16.
  */
 
-interface PictureView {
+public interface PictureView {
     void onNetworkError();
 
     void onSuccess(List<Children> success);
 
-    void loadingAnimation();
+    void startLoading();
+
+    void onGeneralError();
+
+    void setOnErrorClickListener();
 }
