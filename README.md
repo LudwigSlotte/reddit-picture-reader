@@ -4,7 +4,7 @@ A simple reader for showing the top pictures of Reddit.com/r/pics developed in K
 
 ### Features
 
-* See the picture, description, and user in a nice UI.
+* See the picture, description, and user in a simple UI.
 * Favourite pictures to save them to your personal repository.
 * Refresh the feed by swiping down at the top.
 
