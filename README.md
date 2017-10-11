@@ -16,7 +16,6 @@ A simple reader for showing the top pictures of Reddit.com/r/pics developed in K
 ## Built With
 
 * [Realm](https://github.com/realm/realm-java) - Realm is a mobile database that runs directly inside phones, tablets or wearables.
-* [Butterknife](http://jakewharton.github.io/butterknife/) - Field and Method binding for Android views.
 * [RxJava](https://github.com/ReactiveX/RxJava) - Reactive Extensions for the JVM.
 * [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
 * [Gson](https://github.com/google/gson) - Serialize and deserialize Java objects.
