@@ -1,6 +1,6 @@
 # Reddit Picture Reader
 
-A simple reader for showing the top pictures of Reddit.com/r/pics.
+A simple reader for showing the top pictures of Reddit.com/r/pics developed in Kotlin.
 
 ### Features
 
