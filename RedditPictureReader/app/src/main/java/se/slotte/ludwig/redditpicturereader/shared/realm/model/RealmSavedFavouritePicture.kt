@@ -8,5 +8,4 @@ class RealmSavedFavouritePicture : RealmObject() {
     @PrimaryKey
     val id: String? = null
     val url: String? = null
-
 }

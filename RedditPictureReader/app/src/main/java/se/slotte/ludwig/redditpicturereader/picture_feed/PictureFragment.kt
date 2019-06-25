@@ -12,10 +12,15 @@ import se.slotte.ludwig.redditpicturereader.R
 import se.slotte.ludwig.redditpicturereader.picture_feed.adapter.MyPictureRecyclerViewAdapter
 import se.slotte.ludwig.redditpicturereader.picture_feed.data.model.Children
 
-
 class PictureFragment : Fragment(), PictureView {
-    private lateinit var myPictureRecyclerViewAdapter: MyPictureRecyclerViewAdapter
-    private lateinit var presenter: PicturePresenter
+    private val myPictureRecyclerViewAdapter: MyPictureRecyclerViewAdapter by lazy {
+        MyPictureRecyclerViewAdapter()
+    }
+    private val presenter: PicturePresenter by lazy {
+        PicturePresenter(this).apply {
+            init()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,24 +28,12 @@ class PictureFragment : Fragment(), PictureView {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapter()
         initLayoutManager()
-
         swipeRefreshListener()
-        handlePresenter()
-    }
-
-    private fun handlePresenter() {
-        presenter = PicturePresenter(this)
-        presenter.init()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_picture_list, container, false)
-    }
-
-    private fun initAdapter() {
-        myPictureRecyclerViewAdapter = MyPictureRecyclerViewAdapter()
     }
 
     private fun initLayoutManager() {
@@ -63,7 +56,7 @@ class PictureFragment : Fragment(), PictureView {
 
     override fun onNetworkError() {
         myPictureRecyclerViewAdapter.notifyDataSetChanged()
-        Snackbar.make(swipeRefreshLayout!!, R.string.error_network_error_occurred, Snackbar.LENGTH_LONG).show()
+        swipeRefreshLayout.createSnackbar(R.string.error_network_error_occurred, Snackbar.LENGTH_LONG)
     }
 
     override fun onSuccess(listOfChildren: List<Children>) {
@@ -77,7 +70,6 @@ class PictureFragment : Fragment(), PictureView {
 
     override fun onGeneralError() {
         myPictureRecyclerViewAdapter.notifyDataSetChanged()
-        Snackbar.make(swipeRefreshLayout!!, R.string.error_no_pictures, Snackbar.LENGTH_LONG).show()
+        swipeRefreshLayout.createSnackbar(R.string.error_no_pictures, Snackbar.LENGTH_LONG)
     }
-
 }

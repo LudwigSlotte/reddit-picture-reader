@@ -10,5 +10,4 @@ class FavouritePicturePresenter(private val view: FavouritePictureView) {
         val realmResults = realm.where(RealmSavedFavouritePicture::class.java).findAll()
         view.loadFromDatabase(realmResults)
     }
-
 }

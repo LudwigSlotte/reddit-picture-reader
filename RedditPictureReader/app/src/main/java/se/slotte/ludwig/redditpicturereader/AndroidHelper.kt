@@ -5,8 +5,13 @@ import kotlin.properties.ObservableProperty
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+inline fun <T> Delegates.didChange(initialValue: T,
+                                   crossinline onChange: (newValue: T) -> Unit): ReadWriteProperty<Any?, T> =
+    object : ObservableProperty<T>(initialValue) {
+        override fun afterChange(property: KProperty<*>, oldValue: T, newValue: T) = onChange(newValue)
+    }
 
-inline fun <T> Delegates.didChange(initialValue: T, crossinline onChange: (newValue: T) -> Unit):
-        ReadWriteProperty<Any?, T> = object : ObservableProperty<T>(initialValue) {
-    override fun afterChange(property: KProperty<*>, oldValue: T, newValue: T) = onChange(newValue)
+fun View.createSnackbar(message: String, length: Int) {
+    Snackbar.make(this, message, length)
+        .show()
 }
